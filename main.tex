@@ -1,0 +1,110 @@
+\documentclass[12pt,a4paper]{ltjsreport}
+\usepackage{graphicx}
+\usepackage{fontspec}
+\usepackage{url}
+\usepackage{colortbl,array,xcolor}
+\usepackage{here}
+\begin{document}
+\thispagestyle{empty}
+\begin{center}                                                        
+eラーニングシステムにおける\\
+利用形態の多様性に対応可能な\\
+アーキテクチャに関する調査研究\\
+\vfill
+サブタイトル
+
+\vfill
+学籍番号 氏名\\
+\vfill
+主指導教員  教員名\\
+\vfill
+北陸先端科学技術大学院大学\\
+先端科学技術研究科\\
+情報科学\\ 
+\vfill
+令和4年3月\\ % 学位授与年月
+\vfill
+\end{center}
+
+% 目次の出力
+\tableofcontents
+
+\clearpage
+\centerline{概要}
+\input{overview.tex}
+\clearpage
+
+\chapter{はじめに}
+\section{背景}
+\input{background.tex}
+\section{目的}
+\input{objectives.tex}
+\section{構成}
+\input{composition.tex}
+
+\chapter{調査事例}
+\section{ELSの定義}
+\input{els.tex}
+\section{ELSの実例}
+\input{example.tex}
+\section{ELSの特性}
+\input{feature.tex}
+
+\chapter{アーキテクチャ}
+\input{contents.tex}
+
+\section{ステークホルダー}
+\input{stakeholder.tex}
+\section{機能要求}
+\input{req.tex}
+\section{システム構成}
+\input{structure.tex}
+\section{ユースケース}
+\input{usecase.tex}
+\section{システムの動作}
+\input{behavior.tex}
+
+
+
+\chapter{実装}
+%% \section{実装}
+\input{implementation.tex}
+
+
+
+\chapter{評価}
+\input{evaluations.tex}
+
+
+%% \chapter{議論}
+
+
+\clearpage
+
+
+\chapter{おわりに}
+\input{conclusion.tex}
+
+
+\renewcommand{\bibname}{参考文献}
+\begin{thebibliography}{99}
+\bibitem{el1} 川上, 佐々木:情報セキュリティ教育のための
+e ラーニング教材作成システム
+ELSEC のフィッシング対策教育への適用，2011,
+情報処理学会論文誌 Vol.52 No.3 1266-1278(Mar.2011)
+\bibitem{el2} 仲林，森本:拡張性を有する
+学習支援システムにおける再利用性向上のための
+教材オブジェクトデザインパターンの設計と実装, 2018,
+教育システム情報学会誌 Vol. 35, No. 3 2018 pp. 248‒259
+\bibitem{el3} 坂上,森山,上田:強制実行型
+情報セキュリティ教育システムの開発と評価, 2017,
+情報システム学会 第 13 回全国大会・研究発表大会
+\bibitem{el4} 花田,大場:学習習熟度を用いた
+PBL 向け自主学習支援システムの構築, 2016,
+「情報教育シンポジウム」2016年8月
+\bibitem{el5} 竹下,小林,佐々木:脆弱性対策教育のためのeラーニングシステムの開発と評価, 2011,
+日本セキュリティ・マネジメント学会誌 24(1), 17-26, 2010-04
+\bibitem{el6} 北川,上原...:IT教育サポートツール「MultiVNC」の開発, 
+2004,社団法人 情報処理学会 研究報告 2004-CE-77 (13) 2004/11/20
+\end{thebibliography}
+\end{document}

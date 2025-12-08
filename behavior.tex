@@ -1,0 +1,189 @@
+
+図\ref{fig:システム動作例}に教育担当者が教材を登録してから、
+学習者の学習、教育担当者の教材改善、課程設計者の課程設計改善までのシステムの動作を示す。
+以下のように準備、学習者、教育担当者、課程設計者に分けて詳しく説明する。
+
+\begin{figure}[H]
+  \vspace{0.5cm}
+  \hspace*{0.5cm}
+  % \includegraphics[width=12cm,bb=0 200 800 500]{../role.pdf}
+  \caption{システム動作例}
+  \label{fig:システム動作例}
+\end{figure}
+
+\clearpage
+
+\begin{enumerate}
+\item{準備}
+
+学習者が利用する前に、教育担当者は課程と教材をシステムに登録しておく必要がある。
+
+\begin{enumerate}
+\item 課程に新しい教材を追加する
+
+\medskip
+\begin{tabular}{|l|l|l|}\hline
+入力 & (課程,教材リスト) & \verb|(CO1,[BK1, BK2, …])| \\ \hline
+出力 & なし & \verb|ok|\\ \hline
+\end{tabular}
+\medskip
+
+\item 学習進捗記録を初期化する
+
+\medskip
+\begin{tabular}{|l|l|l|}\hline
+入力 & 教材 & \verb|BK1| \\ \hline
+出力 & 学習進捗記録 & \verb|SB1(BK1, [])|\\ \hline
+\end{tabular}
+\medskip
+
+\end{enumerate}
+
+\item{学習者}
+
+\begin{enumerate}
+\item 課程一覧の中からまだ修了していないものを検索する
+
+\medskip
+\begin{tabular}{|l|l|l|}\hline
+入力 & 学生 & \verb|ST1| \\ \hline
+出力 & 課程リスト & \verb|[CO1,CO2, …]| \\ \hline
+\end{tabular}
+\medskip
+
+\item 選択した課程の中でまだ完了していない教材を学習する
+
+\medskip
+\begin{tabular}{|l|l|l|}\hline
+入力 & 課程 & \verb|[CO1]|\\ \hline
+出力 & 教材リスト & \verb|(CO1,[BK1, BK2, …])| \\ \hline
+\end{tabular}
+\medskip
+
+学習記録が存在しない場合は作成される。
+例えば上の例で\verb|BK1|を初めて学習するならば、
+\verb|SB1(BK1,[SR1(ST1,[])])|が作成される。
+学習者の完了試験の結果はその教材の学習記録に追加される。
+
+\end{enumerate}
+
+\item{教育担当者}
+
+\begin{enumerate}
+
+\item 教材を学習したすべての学習者の学習記録を取得する
+
+学習記録は学習が遅い、または正答率が低い学生を見つけ、指導するために使われる。
+
+\medskip
+\begin{tabular}{|l|l|l|}\hline
+入力 & 教材 & \verb|BK1|\\ \hline
+出力 & 学習記録 & 
+\verb|SB1(BK1,[SR1(ST1,[...70...]), |\\
+　& &
+\verb|         SR2(ST2,[...30...])])|\\ \hline
+\end{tabular}
+\medskip
+
+上の例では\verb|ST2|の正答率が低いことから
+学習が遅れていることを発見し、指導する。
+
+
+\item 教材の改善箇所を発見する
+
+完了試験の問題ごとの正答率を計算し、境界値を下回るものがあれば
+その問題に対応する学習項目を説明している箇所を改善対象とする。
+
+\medskip
+\begin{tabular}{|l|l|l|}\hline
+入力& (教材, 試験問題) & \verb|(BK1,Q1)|\\ \hline
+履歴& 学習進捗記録 & 
+\verb|[SR1(ST1,[Q1(OOXX)]), |\\
+　& &
+\verb| SR2(ST2,[Q1(OXOX)]),...])|\\ \hline
+出力& 問題ごとの正答率 &
+\verb|Q1(0.7, 0.5, 0.5, 0.1)|\\ \hline
+\end{tabular}
+\medskip
+
+上の例では教材\verb|BK1|の完了試験\verb|Q1|に対し、
+受験者全員の問題ごとの正解/不正解の履歴を取得し、正答率を計算する。
+この時境界値を\verb|0.2|とすると、問題4は期待される正答率を下回っているので、
+対応する学習項目の改善が必要になると判定する。
+
+\end{enumerate}
+
+\item{課程設計者}
+
+\begin{enumerate}
+\item 課程改善(教材の追加)の必要性を発見する
+
+教材改善進捗記録を取得し、
+教材の改善により変化した正答率を境界値と比べる。
+改善を繰り返しても正答率が境界値を下回る場合には
+課程自身の改善が必要と判定する。
+具体的には学習者の理解度を向上させる教材を新たに作成し課程に
+追加することを教育担当者に依頼する。
+
+\verb|SH1|を課程\verb|CO1|に対応する教材改善進捗記録、
+\verb|BK2...BK5|を改善された教材、
+\verb|SB2...SB5|を対応する学習進捗記録とする。
+教材\verb|BK1|の完了試験を\verb|Q1|とする。
+\verb|Q2|以降も同様である。
+
+\medskip
+\begin{tabular}{|l|l|l|}\hline
+入力&課程& \verb|CO1|\\ \hline
+対象&教材改善進捗記録& \verb|SH1([SB1, ..., SB5])|\\ \hline
+履歴& 学習進捗記録 & 
+\verb|SB1(BK1,|\\
+　& &
+\verb|[SR1(ST1,[Q1(OOXX)]),|\\ 
+& & 
+\verb| SR2(ST2,[Q1(OXOX)]),]),|\\ 
+& & 
+\verb|SB5(BK5,|\\
+　& &
+\verb|[SR1(ST1,[Q5(OOOX)]), |\\
+　& &
+\verb| SR2(ST2,[Q5(OXOX)]),]),|\\ \hline
+出力& 問題ごとの正答率 &
+\verb|Q1(0.7, 0.5, 0.1, 0.1)|\\ 
+& &
+\verb|Q2(0.7, 0.5, 0.2, 0.1)|\\ 
+& &
+\verb|Q5(0.7, 0.5, 0.5, 0.2)|\\ \hline
+\end{tabular}
+\medskip
+
+上の例では、課程設計者が\verb|CO1|の改善を検討する場合である。
+最初に登録した教材\verb|BK1|を複数の学習者が学習し、学習記録が作成された後で、
+問題ごとの正答率を確認する。
+その結果問題3と問題4の正答率が低いことが発見され、
+教育担当者が該当する学習項目の内容を改善した教材\verb|BK2|を作成し登録する。
+
+
+問題3と問題4に対してこの課程を繰り返した結果
+問題3に対しては\verb|BK5|では期待される正答率を得られているが、問題4に対しては改善の効果が
+ほとんど見られないことが判明した。
+課程設計者が問題4を分析した結果から\verb|CO1|で最初に学習する教材をより理解が容易なものにすることを決定し
+教育担当者に作成を依頼する。この結果、課程が以下のように変更される。
+
+\medskip
+\begin{tabular}{|l|l|l|}\hline
+改善前& (課程,教材リスト) & \verb|(CO1,[BK1])| \\ \hline
+改善後&& \verb|(CO1,[BK0, BK1])|\\ \hline
+\end{tabular} 
+\medskip
+
+改善された課程を別の学習者の集合に学習してもらった後で、
+同様に正答率の上昇率を確認する。
+\verb|BK0|を問題4の理解に必要な基礎知識を含むように作成することで、
+改善後は\verb|BK1|を学習するのは\verb|BK0|の試験の合格者のみであるから、
+\verb|Q1|の問題4は理解している学習者の割合が増えるため正答率の上昇効果が期待できる。
+
+\end{enumerate}
+
+\end{enumerate}
+
+\clearpage
