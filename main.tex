@@ -4,25 +4,24 @@
 \usepackage{url}
 \usepackage{colortbl,array,xcolor}
 \usepackage{here}
+\usepackage{amsmath}
+
 \begin{document}
 \thispagestyle{empty}
 \begin{center}                                                        
-eラーニングシステムにおける\\
-利用形態の多様性に対応可能な\\
-アーキテクチャに関する調査研究\\
+コードの時系列変化を考慮した\\
+保守性低下の要因分析と改善
 \vfill
-サブタイトル
-
 \vfill
-学籍番号 氏名\\
+2410064 笹川 尋翔\\
 \vfill
-主指導教員  教員名\\
+主指導教員  鈴木 正人\\
 \vfill
 北陸先端科学技術大学院大学\\
 先端科学技術研究科\\
 情報科学\\ 
 \vfill
-令和4年3月\\ % 学位授与年月
+令和8年3月\\ % 学位授与年月
 \vfill
 \end{center}
 
@@ -31,49 +30,115 @@ eラーニングシステムにおける\\
 
 \clearpage
 \centerline{概要}
-\input{overview.tex}
+\input{0_overview.tex}
 \clearpage
 
 \chapter{はじめに}
 \section{背景}
-\input{background.tex}
+\input{1_1_background.tex}
+\clearpage
+\section{動機}
+\input{1_2_motivation.tex}
+\clearpage
 \section{目的}
-\input{objectives.tex}
+\input{1_3_objectives.tex}
+\clearpage
+\section{貢献}
+\input{1_4_contributions.tex}
+\clearpage
+\section{貢献}
+\input{1_4_contributions.tex}
+\clearpage
 \section{構成}
-\input{composition.tex}
+\input{1_5_composition.tex}
+\clearpage
 
-\chapter{調査事例}
-\section{ELSの定義}
-\input{els.tex}
-\section{ELSの実例}
-\input{example.tex}
-\section{ELSの特性}
-\input{feature.tex}
+\chapter{関連研究}
+\section{Just-In-Time品質保証}
+\input{2_1_jit_qa.tex}
+\clearpage
+\section{コミットベースの欠陥予測}
+\input{2_2_commit_based_defect_prediction.tex}
+\clearpage
+\section{静的解析による品質改善}
+\input{2_3_quality_improvement_through_static_analysis.tex}
+\clearpage
+\section{既存研究の問題点}
+\input{2_4_limitations_of_existing_research.tex}
+\clearpage
 
-\chapter{アーキテクチャ}
-\input{contents.tex}
+\chapter{提案手法}
+\section{研究のアプローチ}
+\input{3_1_research_approach.tex}
+\clearpage
+\section{メトリクス設計}
+\input{3_2_0_metrics_design.tex}
+\subsection{メソッド単位の変更メトリクス}
+\input{3_2_1_method_level_change_metrics.tex}
+\clearpage
+\subsection{コミット単位の変更メトリクス}
+\input{3_2_2_commit_level_change_metrics.tex}
+\clearpage
+\section{機械学習モデル}
+\input{3_3_machine_learning_model.tex}
+\clearpage
+\section{レビュー労力の測定手法}
+\subsection{従来手法の問題点}
+\input{3_4_1_problems_with_conventional_methods.tex}
+\clearpage
+\subsection{ナップサック問題への定式化}
+\input{3_4_2_formulation_of_the_knapsack_problem.tex}
+\clearpage
+\subsection{レビュー労力の計算式}
+\input{3_4_3_review_effort_calculation_formula.tex}
+\clearpage
+\subsection{貪欲法}
+\input{3_4_4_greedy_algorithm.tex}
+\clearpage
+\subsection{レビューに使える総労力}
+\input{3_4_5_total_effort_available_for_reviews.tex}
+\clearpage
+\subsection{Cost-Benefit Curveによる評価}
+\input{3_4_6_evaluation_using_the_cost_benefit_curve.tex}
+\clearpage
 
-\section{ステークホルダー}
-\input{stakeholder.tex}
-\section{機能要求}
-\input{req.tex}
-\section{システム構成}
-\input{structure.tex}
-\section{ユースケース}
-\input{usecase.tex}
-\section{システムの動作}
-\input{behavior.tex}
-
-
-
-\chapter{実装}
-%% \section{実装}
-\input{implementation.tex}
-
-
+\chapter{実験}
+\section{データセット}
+\input{4_1_0_dataset.tex}
+\subsection{正解ラベルの定義}
+\input{4_1_1_definition_of_correct_answer_label.tex}
+\clearpage
+\subsection{データの前処理}
+\input{4_1_2_data_preprocessing.tex}
+\subsection{使用するレコード数の上限}
+\input{4_1_3_maximum_number_of_records_to_use.tex}
+\clearpage
+\section{対象プロジェクト}
+\input{4_2_target_projects.tex}
+\clearpage
+\section{特徴量生成}
+\input{4_3_0_feature_generation.tex}
+\subsection{変更メトリクスの計算}
+\input{4_3_1_calculation_of_change_metrics.tex}
+\subsection{メソッドの操作タイプのラベル付与}
+\input{4_3_2_labeling_method_operation_types.tex}
+\clearpage
+\subsection{メソッド識別子の処理}
+\input{4_3_3_processing_of_method_identifiers.tex}
+\clearpage
+\section{実験手順}
+\subsection{モデルの段階的評価}
+\input{4_4_1_stepwise_evaluation_of_models.tex}
+\subsection{モデルの訓練と評価}
+\input{4_4_2_model_training_and_evaluation.tex}
+\clearpage
+\subsection{モデル解釈性の分析}
+\input{4_4_3_analysis_of_model_interpretability.tex}
+\clearpage
 
 \chapter{評価}
-\input{evaluations.tex}
+\section{予測性能}
+\input{5_1_0_predictive_performance.tex}
 
 
 %% \chapter{議論}
@@ -88,23 +153,35 @@ eラーニングシステムにおける\\
 
 \renewcommand{\bibname}{参考文献}
 \begin{thebibliography}{99}
-\bibitem{el1} 川上, 佐々木:情報セキュリティ教育のための
-e ラーニング教材作成システム
-ELSEC のフィッシング対策教育への適用，2011,
-情報処理学会論文誌 Vol.52 No.3 1266-1278(Mar.2011)
-\bibitem{el2} 仲林，森本:拡張性を有する
-学習支援システムにおける再利用性向上のための
-教材オブジェクトデザインパターンの設計と実装, 2018,
-教育システム情報学会誌 Vol. 35, No. 3 2018 pp. 248‒259
-\bibitem{el3} 坂上,森山,上田:強制実行型
-情報セキュリティ教育システムの開発と評価, 2017,
-情報システム学会 第 13 回全国大会・研究発表大会
-\bibitem{el4} 花田,大場:学習習熟度を用いた
-PBL 向け自主学習支援システムの構築, 2016,
-「情報教育シンポジウム」2016年8月
-\bibitem{el5} 竹下,小林,佐々木:脆弱性対策教育のためのeラーニングシステムの開発と評価, 2011,
-日本セキュリティ・マネジメント学会誌 24(1), 17-26, 2010-04
-\bibitem{el6} 北川,上原...:IT教育サポートツール「MultiVNC」の開発, 
-2004,社団法人 情報処理学会 研究報告 2004-CE-77 (13) 2004/11/20
+\bibitem{kim2014}
+Miryung Kim, Thomas Zimmermann, and Nachiappan Nagappan,
+``An Empirical Study of Refactoring Challenges and Benefits at Microsoft,''
+\textit{IEEE Transactions on Software Engineering},
+vol. 40, no. 7, pp. 633--649, July 2014.
+
+\bibitem{kamei2013}
+Yasutaka Kamei, Emad Shihab, Bram Adams, Ahmed E. Hassan, Audris Mockus, and Anand Sinha,
+``A Large-Scale Empirical Study of Just-in-Time Quality Assurance,''
+\textit{IEEE Transactions on Software Engineering},
+vol. 39, no. 6, pp. 757--773, June 2013.
+
+\bibitem{ferenc2020}
+Rudolf Ferenc, P\'{e}ter Gyimesi, G\'{a}bor Gyimesi, Zolt\'{a}n T\'{o}th, and Tibor Gyim\'{o}thy,
+``An Automatically Created Novel Bug Dataset and Its Validation in Bug Prediction,''
+\textit{Journal of Systems and Software},
+vol. 169, p. 110691, November 2020.
+
+\bibitem{han2021}
+Xiaofeng Han, Amjed Tahir, Peng Liang, Steve Counsell, and Yajing Luo,
+``Understanding Code Smell Detection via Code Review: A Study of the OpenStack Community,''
+\textit{Proc. 2021 IEEE/ACM 29th International Conference on Program Comprehension (ICPC)},
+pp. 323--334, May 2021.
+
+\bibitem{romano2022}
+Simone Romano, Fiorella Zampetti, Maria Teresa Baldassarre, Massimiliano Di Penta, and Giuseppe Scanniello,
+``Do Static Analysis Tools Affect Software Quality when Using Test-driven Development?''
+\textit{Proc. 16th ACM/IEEE International Symposium on Empirical Software Engineering and Measurement (ESEM)},
+pp. 80--91, September 2022.
+
 \end{thebibliography}
 \end{document}
