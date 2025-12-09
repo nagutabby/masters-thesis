@@ -53,3 +53,40 @@ Partial Dependence Plot (PDP)を用いて、各特徴量が予測陽性確率に
 メソッド単位の変更メトリクスであるtokens\_change、length\_change、operation\_type\_addedは、値の変化に対する陽性確率の変動が小さく、ほぼ一定の傾向を示した。これは、多くのメソッドが変更されていないことを反映している。Neo4jのoperation\_type\_addedでは、新規メソッドの追加がバグ混入リスクを低下させる傾向が見られた。これは、新規メソッドが既存コードとの相互作用が少ないため、既存メソッドの変更よりもリスクが低い可能性を示唆している。
 
 PDPの分析から、プロジェクト間で特徴量の影響が異なることが明らかになった。コミット単位の変更メトリクスは、全てのプロジェクトで一貫して陽性確率を低下させる傾向を示したが、その低下の程度はプロジェクトによって異なる。これは、プロジェクトの開発文化やコーディング規約の違いが、特徴量の重要性に影響を与えている可能性を示唆している。メソッド単位の変更メトリクスは、変化に対する陽性確率の応答が小さいという共通の特性を持つが、変更が発生した場合の影響の大きさはプロジェクトによって異なると考えられる。
+
+図\ref{fig:pdp_elasticsearch}から図\ref{fig:pdp_orientdb}に、各プロジェクトにおける主要な特徴量のPartial Dependence Plotを示す。
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.9\textwidth]{figures/elasticsearch/partial_dependence_plots.png}
+\caption{主要特徴量のPartial Dependence Plot（Elasticsearch）}
+\label{fig:pdp_elasticsearch}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.9\textwidth]{figures/hazelcast/partial_dependence_plots.png}
+\caption{主要特徴量のPartial Dependence Plot（Hazelcast）}
+\label{fig:pdp_hazelcast}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.9\textwidth]{figures/neo4j/partial_dependence_plots.png}
+\caption{主要特徴量のPartial Dependence Plot（Neo4j）}
+\label{fig:pdp_neo4j}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.9\textwidth]{figures/netty/partial_dependence_plots.png}
+\caption{主要特徴量のPartial Dependence Plot（Netty）}
+\label{fig:pdp_netty}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.9\textwidth]{figures/orientdb/partial_dependence_plots.png}
+\caption{主要特徴量のPartial Dependence Plot（OrientDB）}
+\label{fig:pdp_orientdb}
+\end{figure}

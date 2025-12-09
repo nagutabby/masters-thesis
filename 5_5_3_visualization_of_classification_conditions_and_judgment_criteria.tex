@@ -30,3 +30,12 @@ Neo4jでは、「lines\_added <= 91.5 AND lines\_added <= 24.5」という小規
 Nettyでは、tokens\_changeが最も重要な分割条件となり、「tokens\_change <= 0.5 AND lines\_deleted <= 54.5 AND tokens\_change > -0.5」という条件で陽性割合0.849を達成した。これは、メソッドのトークン数がわずかに変化した場合にバグ混入リスクが高いことを示している。逆に、「tokens\_change <= 0.5 AND lines\_deleted <= 54.5 AND tokens\_change <= -0.5」ではトークン数が減少(リファクタリングによる簡素化)した場合に陰性割合0.975となり、コードの整理がバグ混入リスクを低下させることが示された。
 
 OrientDBでは、ステップ3で陽性リーフノードが2個から5個に増加し、より多様なバグ混入パターンを識別できるようになった。「lines\_added <= 104.5 AND HNDB > 30.887 AND lines\_deleted <= 14.5」という条件では陽性割合0.774となり、小規模な変更で複雑度が高い場合のリスクを捉えている。また、「lines\_added > 104.5 AND HVOL > 256.864 AND lines\_deleted > 1840.5」という大規模な変更でも陽性割合0.911となる条件が見つかり、大規模かつ複雑な変更にはリスクが伴うことが示された。
+
+図\ref{fig:decision_tree_vis}に、代表例としてElasticsearchプロジェクトにおけるステップ3の決定木を示す。
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.9\textwidth]{figures/elasticsearch/decision_tree_visualization.png}
+\caption{決定木による分類ルールの可視化（Elasticsearch、ステップ3）}
+\label{fig:decision_tree_vis}
+\end{figure}

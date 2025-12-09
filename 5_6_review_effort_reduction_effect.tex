@@ -56,3 +56,40 @@ Nettyプロジェクトでは、特に低労力域で大きな改善が見られ
 OrientDBプロジェクトでは、40\%および60\%労力時点でそれぞれ13.1ポイント(31件)の改善が見られた。Elasticsearchプロジェクトでは、40\%および60\%労力時点でそれぞれ7.8ポイント(25件)の改善を示した。これらの結果は、提案手法が様々なレビュー労力設定において一貫して性能向上を実現できることを示している。
 
 一方、Hazelcastプロジェクトでは他のプロジェクトと比較して改善幅が限定的であった。表\ref{tab:cost_benefit}によると、60\%労力時点で3.9ポイント(13件)の改善が最大であり、20\%労力時点では改善が見られなかった。この結果は、プロジェクトの特性によって提案手法の効果に差異があることを示しており、さらなる分析が必要である。
+
+図\ref{fig:comparison_cost_benefit_elasticsearch}から図\ref{fig:comparison_cost_benefit_orientdb}に、各プロジェクトにおけるベースライン手法とステップ3のCost-Benefit Curveの比較を示す。
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.7\textwidth]{figures/elasticsearch/comparison_cost_benefit_curve.png}
+\caption{Cost-Benefit Curveの比較（Elasticsearch）}
+\label{fig:comparison_cost_benefit_elasticsearch}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.7\textwidth]{figures/hazelcast/comparison_cost_benefit_curve.png}
+\caption{Cost-Benefit Curveの比較（Hazelcast）}
+\label{fig:comparison_cost_benefit_hazelcast}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.7\textwidth]{figures/neo4j/comparison_cost_benefit_curve.png}
+\caption{Cost-Benefit Curveの比較（Neo4j）}
+\label{fig:comparison_cost_benefit_neo4j}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.7\textwidth]{figures/netty/comparison_cost_benefit_curve.png}
+\caption{Cost-Benefit Curveの比較（Netty）}
+\label{fig:comparison_cost_benefit_netty}
+\end{figure}
+
+\begin{figure}[ht]
+\centering
+\includegraphics[width=0.7\textwidth]{figures/orientdb/comparison_cost_benefit_curve.png}
+\caption{Cost-Benefit Curveの比較（OrientDB）}
+\label{fig:comparison_cost_benefit_orientdb}
+\end{figure}
