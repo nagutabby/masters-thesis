@@ -7,3 +7,59 @@ Partial Dependence Plot（PDP）の生成: 各特徴量と陽性予測確率の�
 決定木の可視化: ランダムフォレストを構成する決定木の一つを可視化し、どのような分類条件でバグの有無を判断しているかを確認する。決定木の可視化により、モデルの判断基準と確信度を具体的に把握できる。
 
 これらの実験手順により、提案手法の有効性を多角的に評価し、時系列変化を考慮することがソフトウェア欠陥予測にどのような効果をもたらすかを明らかにする。
+
+本研究では、ランダムフォレストを用いて欠陥混入予測モデルを構築する。
+ランダムフォレストは、複数の決定木を構築し、それらの予測結果を集約することで高い予測精度と汎化性能を実現するアンサンブル学習手法である。
+
+図\ref{fig:decision_tree}に決定木の構造を示す。
+決定木は、各ノードにおいて特徴量の閾値に基づいてデータを分割し、葉ノードで最終的な予測クラスを出力する。
+しかし、単一の決定木は訓練データに過適合しやすく、汎化性能が低下する傾向がある。
+
+\begin{figure}[tb]
+  \centering
+  \includegraphics[width=0.7\linewidth]{figures/decision_tree.pdf}
+  \caption{決定木の構造}
+  \label{fig:decision_tree}
+\end{figure}
+
+ランダムフォレストでは、この問題を解決するためにブートストラップサンプリングを用いる。
+図\ref{fig:bootstrap_sampling}に示すように、元の訓練データセットから復元抽出により複数の異なるサンプルを生成し、各サンプルに対して独立に決定木を学習する。
+この手法により、各決定木は異なるデータの特性を学習し、多様性のあるモデル集団を構築することができる。
+
+\begin{figure}[tb]
+  \centering
+  \includegraphics[width=0.85\linewidth]{figures/bootstrap_sampling.pdf}
+  \caption{ブートストラップサンプリングによる訓練データの生成}
+  \label{fig:bootstrap_sampling}
+\end{figure}
+
+図\ref{fig:random_forest}に、ランダムフォレストによる分類の流れを示す。
+各決定木は独立に予測を行い、分類問題では多数決により最終的な予測クラスが決定される。
+また、各分岐点では全特徴量ではなくランダムに選択された特徴量の部分集合のみが使用されるため、決定木間の相関がさらに低減され、モデルの汎化性能が向上する。
+
+\begin{figure}[tb]
+  \centering
+  \includegraphics[width=0.95\linewidth]{figures/random_forest_classification.pdf}
+  \caption{ランダムフォレストによる分類プロセス}
+  \label{fig:random_forest}
+\end{figure}
+
+モデルの解釈可能性を高めるため、特徴量重要度の分析に加えて、Partial Dependence Plot (PDP)を用いた分析を行う。
+PDPは、特定の特徴量の値を変化させたときのモデルの予測値の平均的な変化を可視化する手法である。
+図\ref{fig:pdp}に示すように、特徴量$x_s$に対するPartial Dependence関数は、他の特徴量の値を固定した状態で$x_s$を変化させた際の予測値の平均として計算される。
+
+\begin{figure}[tb]
+  \centering
+  \includegraphics[width=0.9\linewidth]{figures/partial_dependence_plot.pdf}
+  \caption{Partial Dependence Plotの計算方法}
+  \label{fig:pdp}
+\end{figure}
+
+特徴量$x_s$に対するPartial Dependence関数$\hat{f}_{x_s}$は以下のように定義される:
+
+\begin{equation}
+\hat{f}_{x_s}(x_s) = \frac{1}{n}\sum_{i=1}^{n}\hat{f}(x_s, \mathbf{x}_{\backslash s}^{(i)})
+\end{equation}
+
+ここで、$\hat{f}$は学習されたモデル、$\mathbf{x}_{\backslash s}^{(i)}$は$i$番目のサンプルにおける特徴量$x_s$以外の特徴量の値を表す。
+この分析により、各特徴量の値の変化が欠陥混入確率に与える影響の方向性と大きさを定量的に把握することができる。
