@@ -1,52 +1,18 @@
-モデルがどのような特徴量を重視してバグ予測を行っているかを明らかにするため、ステップ3で構築したランダムフォレストモデルのFeature Importanceを算出した。Feature Importanceは、各特徴量が決定木の分岐においてどの程度情報利得をもたらしたかを示す指標であり、値が大きいほどその特徴量が予測に重要であることを意味する。
+モデルが予測において重視した特徴量を明らかにするため、Feature Importanceを分析した。
 
-全てのプロジェクトにおいて、コミット単位の変更メトリクスであるlines\_added（追加行数）、lines\_deleted（削除行数）、num\_files（変更ファイル数）、entropy（変更の広がり）が上位に位置している。特にlines\_addedは、Elasticsearch、Hazelcast、Neo4j、OrientDBの4つのプロジェクトで最も重要な特徴量となっており、重要度は0.0498から0.0869の範囲にある。lines\_deletedも全てのプロジェクトで上位4位以内に入っており、重要度は0.0347から0.0696である。これらの結果は、コミット全体での変更規模がバグ混入リスクの重要な指標であることを示している。
+分析の結果、以下の傾向が全てのプロジェクトで共通して確認された。
 
-num\_filesは全てのプロジェクトで上位5位以内に位置しており、重要度は0.0367から0.0587である。変更が複数のファイルに及ぶコミットは、影響範囲が広く理解が複雑になるため、バグ混入リスクが高いと考えられる。entropyも全てのプロジェクトで上位10位以内に入っており、重要度は0.0248から0.0694である。変更の広がりは各ファイル間の変更されたコードの分散度を示す指標であり、変更が広範囲に分散しているコミットほどバグ混入リスクが高いことを示唆している。
+\begin{enumerate}
+    \item \textbf{コミット規模の影響:} \texttt{lines\_added}（追加行数）や\texttt{num\_files}（変更ファイル数）が上位を占めた。これは、変更規模の大きさがバグ混入リスクの主要な指標であることを示している。
+    \item \textbf{変更の分散:} \texttt{entropy}も上位に位置し、変更が特定の箇所に集中しているか、分散しているかが重要であることが示唆された。
+    \item \textbf{メソッド単位の詳細:} Netty等では\texttt{tokens\_change}（トークン変化量）が最重要となるなど、粒度の細かい変更情報も予測に大きく寄与していた。
+\end{enumerate}
 
-メソッド単位の変更メトリクスでは、tokens\_change（トークン数の変化量）が全てのプロジェクトで上位10位以内に位置している。特にNettyでは0.0750と最も重要な特徴量となっており、Elasticsearchでは0.0522、Hazelcastでは0.0266、Neo4jでは0.0466の重要度を示している。length\_change（コード行数の変化量）も、Elasticsearch、Neo4j、Nettyで上位10位以内に入っており、重要度は0.0299から0.0456である。これらの結果は、メソッド単位での変更規模もバグ予測に寄与していることを示している。
-
-operation\_type\_added（追加操作のフラグ）は、Elasticsearch、Neo4j、Nettyで上位10位以内に位置している。重要度はそれぞれ0.0288、0.0197、0.0250である。この特徴量は、メソッドが新規追加されたかどうかを示すフラグであり、新規追加されたメソッドは既存コードとの統合やインターフェース設計の問題によりバグが混入しやすい可能性がある。
-
-ccn\_change（McCabeの循環的複雑度の変化量）は、Nettyで0.0249と7位に位置している。他のプロジェクトでは上位10位以内には含まれていないが、制御フローの複雑さの変化がバグ予測に寄与する可能性があることを示唆している。
-
-プロジェクト間での特徴量の重要度の違いも観察された。Nettyではtokens\_changeが最も重要な特徴量となっており、他のプロジェクトとは異なる傾向を示している。これは、Nettyがネットワークライブラリであり、データ処理やプロトコル実装において細かいトークン単位での変更がバグに直結しやすい特性を持つためと考えられる。一方、Elasticsearch、Hazelcast、Neo4j、OrientDBではlines\_addedが最も重要であり、これらのプロジェクトではコミット全体の変更規模がバグ予測において最も重要な指標となっている。
-
-全体として、コミット単位の変更メトリクスとメソッド単位の変更メトリクスの両方が上位に位置していることから、提案手法が異なる粒度での変更特性を効果的に捉えていることが確認された。特に、変更規模（lines\_added、lines\_deleted）、影響範囲（num\_files、entropy）、メソッド単位の変化量（tokens\_change、length\_change）という3つの観点が、バグ予測において重要な役割を果たしていることが明らかになった。
-
-図\ref{fig:feature_importance_elasticsearch}から図\ref{fig:feature_importance_orientdb}に、各プロジェクトにおけるFeature Importance上位10個の特徴量を示す。
+図\ref{fig:feature_importance_neo4j}に、代表例としてNeo4jプロジェクトにおける重要度上位の特徴量を示す。
 
 \begin{figure}[ht]
 \centering
-\includegraphics[width=0.6\textwidth]{figures/elasticsearch/feature_importance_chart.png}
-\caption{特徴量重要度（Elasticsearch）}
-\label{fig:feature_importance_elasticsearch}
-\end{figure}
-
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.6\textwidth]{figures/hazelcast/feature_importance_chart.png}
-\caption{特徴量重要度（Hazelcast）}
-\label{fig:feature_importance_hazelcast}
-\end{figure}
-
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.6\textwidth]{figures/neo4j/feature_importance_chart.png}
-\caption{特徴量重要度（Neo4j）}
+\includegraphics[width=0.7\textwidth]{figures/neo4j/feature_importance_chart.png}
+\caption{特徴量重要度（代表例: Neo4j）}
 \label{fig:feature_importance_neo4j}
-\end{figure}
-
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.6\textwidth]{figures/netty/feature_importance_chart.png}
-\caption{特徴量重要度（Netty）}
-\label{fig:feature_importance_netty}
-\end{figure}
-
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.6\textwidth]{figures/orientdb/feature_importance_chart.png}
-\caption{特徴量重要度（OrientDB）}
-\label{fig:feature_importance_orientdb}
 \end{figure}

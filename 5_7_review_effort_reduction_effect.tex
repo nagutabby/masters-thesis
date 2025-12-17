@@ -1,95 +1,30 @@
-本節では、提案手法によるレビュー労力の削減効果を定量的に評価する。Cost-Benefit Curveを用いたしきい値の調整により、同じレビュー労力でより多くのバグを検出できることを示す。
-
-表\ref{tab:cost_benefit}に、各プロジェクトにおけるベースライン手法と提案手法(Step 3)のCost-Benefit Curve上の主要ポイントを示す。ここでは、レビュー労力を20\%刻みで変化させた際のバグ検出率を比較する。
+提案手法の実践的な有効性を評価するため、Cost-Benefit Curveを用いてレビュー効率を分析した。表\ref{tab:cost_benefit_summary}に、レビュー労力を20\%および40\%に制限した場合のバグ検出率を示す。
 
 \begin{table}[ht]
 \centering
-\caption{レビュー労力別のバグ検出率比較}
-\label{tab:cost_benefit}
+\caption{レビュー労力20\%および40\%時点でのバグ検出率（提案手法の効果）}
+\label{tab:cost_benefit_summary}
 \small
-\begin{tabular}{|l|l|r|r|r|r|r|}
+\begin{tabular}{|l|r|r|r|r|}
 \hline
-プロジェクト & 手法 & レビュー労力 & レビュー数 & 検出バグ数 & バグ検出率 & 改善 \\
+ & \multicolumn{2}{c|}{レビュー労力 20\%時} & \multicolumn{2}{c|}{レビュー労力 40\%時} \\
+\cline{2-5}
+プロジェクト & ベースライン & \textbf{提案手法} & ベースライン & \textbf{提案手法} \\
 \hline
-Elasticsearch & ベースライン & 20\% & 284 & 207 & 64.7\% & - \\
- & ステップ3 & 20\% & 292 & 218 & 68.1\% & +3.4\% \\
- & ベースライン & 40\% & 430 & 252 & 78.8\% & - \\
- & ステップ3 & 40\% & 435 & 277 & 86.6\% & +7.8\% \\
- & ベースライン & 60\% & 550 & 280 & 87.5\% & - \\
- & ステップ3 & 60\% & 554 & 305 & 95.3\% & +7.8\% \\
-\hline
-Hazelcast & ベースライン & 20\% & 251 & 188 & 56.1\% & - \\
- & ステップ3 & 20\% & 263 & 188 & 56.1\% & +0.0\% \\
- & ベースライン & 40\% & 388 & 260 & 77.6\% & - \\
- & ステップ3 & 40\% & 406 & 268 & 80.0\% & +2.4\% \\
- & ベースライン & 60\% & 508 & 303 & 90.4\% & - \\
- & ステップ3 & 60\% & 534 & 316 & 94.3\% & +3.9\% \\
-\hline
-Neo4j & ベースライン & 20\% & 239 & 131 & 53.0\% & - \\
- & ステップ3 & 20\% & 247 & 170 & 68.8\% & +15.8\% \\
- & ベースライン & 40\% & 387 & 179 & 72.5\% & - \\
- & ステップ3 & 40\% & 401 & 221 & 89.5\% & +17.0\% \\
- & ベースライン & 60\% & 518 & 209 & 84.6\% & - \\
- & ステップ3 & 60\% & 539 & 240 & 97.2\% & +12.6\% \\
-\hline
-Netty & ベースライン & 20\% & 254 & 121 & 55.8\% & - \\
- & ステップ3 & 20\% & 247 & 164 & 75.6\% & +19.8\% \\
- & ベースライン & 40\% & 397 & 168 & 77.4\% & - \\
- & ステップ3 & 40\% & 399 & 203 & 93.5\% & +16.1\% \\
- & ベースライン & 60\% & 522 & 194 & 89.4\% & - \\
- & ステップ3 & 60\% & 533 & 210 & 96.8\% & +7.4\% \\
-\hline
-OrientDB & ベースライン & 20\% & 248 & 128 & 54.0\% & - \\
- & ステップ3 & 20\% & 260 & 156 & 65.8\% & +11.8\% \\
- & ベースライン & 40\% & 379 & 172 & 72.6\% & - \\
- & ステップ3 & 40\% & 408 & 203 & 85.7\% & +13.1\% \\
- & ベースライン & 60\% & 499 & 193 & 81.4\% & - \\
- & ステップ3 & 60\% & 527 & 224 & 94.5\% & +13.1\% \\
+Elasticsearch & 64.7\% & \textbf{68.1\%} & 78.8\% & \textbf{86.6\%} \\
+Hazelcast & 56.1\% & \textbf{56.1\%} & 77.6\% & \textbf{80.0\%} \\
+Neo4j & 53.0\% & \textbf{68.8\%} & 72.5\% & \textbf{89.5\%} \\
+Netty & 55.8\% & \textbf{75.6\%} & 77.4\% & \textbf{93.5\%} \\
+OrientDB & 54.0\% & \textbf{65.8\%} & 72.6\% & \textbf{85.7\%} \\
 \hline
 \end{tabular}
 \end{table}
 
-最も顕著な改善が見られたのはNeo4jプロジェクトである。表\ref{tab:cost_benefit}より、レビュー労力40\%の条件下で、ベースライン手法が72.5\%のバグ検出率であったのに対し、提案手法は89.5\%を達成し、17.0ポイントの改善を示した。これは42件のバグに相当する。同様に、20\%労力の条件でも15.8ポイント(39件)の改善が確認された。この結果は、提案手法がレビュー対象の優先順位付けにおいて、より効果的なコミットを上位に配置できていることを示している。
-
-Nettyプロジェクトでは、特に低労力域で大きな改善が見られた。表\ref{tab:cost_benefit}に示すように、20\%労力時点で、ベースライン手法の55.8\%に対し、提案手法は75.6\%のバグ検出率を達成し、19.8ポイント(43件)の改善を記録した。40\%労力時点でも16.1ポイント(35件)の改善が確認された。これは、限られたレビューリソースを最も効果的に活用する必要がある実開発現場において、提案手法が特に有用であることを示唆している。
-
-OrientDBプロジェクトでは、40\%および60\%労力時点でそれぞれ13.1ポイント(31件)の改善が見られた。Elasticsearchプロジェクトでは、40\%および60\%労力時点でそれぞれ7.8ポイント(25件)の改善を示した。これらの結果は、提案手法が様々なレビュー労力設定において一貫して性能向上を実現できることを示している。
-
-一方、Hazelcastプロジェクトでは他のプロジェクトと比較して改善幅が限定的であった。表\ref{tab:cost_benefit}によると、60\%労力時点で3.9ポイント(13件)の改善が最大であり、20\%労力時点では改善が見られなかった。この結果は、プロジェクトの特性によって提案手法の効果に差異があることを示しており、さらなる分析が必要である。
-
-図\ref{fig:comparison_cost_benefit_elasticsearch}から図\ref{fig:comparison_cost_benefit_orientdb}に、各プロジェクトにおけるベースライン手法とステップ3のCost-Benefit Curveの比較を示す。
-
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.7\textwidth]{figures/elasticsearch/comparison_cost_benefit_curve.png}
-\caption{Cost-Benefit Curveの比較（Elasticsearch）}
-\label{fig:comparison_cost_benefit_elasticsearch}
-\end{figure}
-
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.7\textwidth]{figures/hazelcast/comparison_cost_benefit_curve.png}
-\caption{Cost-Benefit Curveの比較（Hazelcast）}
-\label{fig:comparison_cost_benefit_hazelcast}
-\end{figure}
+特にNeo4jやNettyでは、提案手法を用いることで、わずか20\%の労力で全体の約70〜75\%のバグを検出可能であり、ベースラインと比較して15ポイント以上の大幅な効率化を達成した。図\ref{fig:comparison_cost_benefit_neo4j}に、Neo4jにおけるCost-Benefit Curveを示す。提案手法（青線）がベースライン（赤線）よりも上側に位置しており、少ない労力で多くのバグを発見できていることが分かる。
 
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.7\textwidth]{figures/neo4j/comparison_cost_benefit_curve.png}
-\caption{Cost-Benefit Curveの比較（Neo4j）}
+\caption{Cost-Benefit Curveの比較（代表例: Neo4j）}
 \label{fig:comparison_cost_benefit_neo4j}
-\end{figure}
-
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.7\textwidth]{figures/netty/comparison_cost_benefit_curve.png}
-\caption{Cost-Benefit Curveの比較（Netty）}
-\label{fig:comparison_cost_benefit_netty}
-\end{figure}
-
-\begin{figure}[ht]
-\centering
-\includegraphics[width=0.7\textwidth]{figures/orientdb/comparison_cost_benefit_curve.png}
-\caption{Cost-Benefit Curveの比較（OrientDB）}
-\label{fig:comparison_cost_benefit_orientdb}
 \end{figure}
