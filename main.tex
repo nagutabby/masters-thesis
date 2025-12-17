@@ -52,52 +52,52 @@
 
 \chapter{コード品質と関連研究}
 \input{2_0_prerequisites.tex}
-\section{Just-In-Time品質保証}
+\section{コミット単位での欠陥予測の必要性}
 \input{2_1_jit_qa.tex}
-\section{コミットベースの欠陥予測}
+\section{コミット時点でのコード特性の把握と課題}
 \input{2_2_commit_based_defect_prediction.tex}
-\section{静的解析による品質改善}
+\section{リアルタイム品質検査の実現と課題}
 \input{2_3_quality_improvement_through_static_analysis.tex}
-\section{既存研究の問題点}
+\section{コミット間変化を考慮しない既存手法の課題}
 \input{2_4_limitations_of_existing_research.tex}
 \clearpage
 
 \chapter{提案手法}
-\section{研究のアプローチ}
+\section{コミットの不規則性を考慮した時系列情報の活用}
 \input{3_1_research_approach.tex}
-\section{メトリクス設計}
+\section{異なる粒度での変更特性の把握}
 \input{3_2_change_metrics.tex}
-\section{機械学習モデル}
+\section{欠陥パターンの学習とモデル評価}
 \input{3_3_machine_learning_model.tex}
-\section{レビュー労力の測定手法}
+\section{限られた労力での効率的なバグ検出の実現}
 \input{3_4_review_effort_method.tex}
 \clearpage
 
 \chapter{実験環境}
-\section{データセットと対象プロジェクト}
+\section{汎用性検証のための対象選定}
 \input{4_1_dataset_and_projects.tex}
-\section{変更メトリクスの実装}
+\section{コミット間変化の機械学習可能な形式への変換}
 \input{4_2_change_metrics_implementation.tex}
-\section{機械学習モデルの構築}
+\section{提案手法の効果を検証する比較モデルの準備}
 \input{4_3_ml_model_construction.tex}
-\section{レビュー労力の計算方法}
+\section{労力制約下での評価指標の設計}
 \input{4_4_review_effort_calculation.tex}
 \clearpage
 
 \chapter{実験結果}
-\section{評価方法}
+\section{段階的評価による各要素の寄与度検証}
 \input{5_1_evaluation_methods.tex}
-\section{予測性能}
+\section{提案手法による予測性能の向上}
 \input{5_2_predictive_performance.tex}
-\section{特徴量の寄与度}
+\section{提案したメトリクスの高い予測寄与度の確認}
 \input{5_3_feature_contribution.tex}
-\section{特徴量の分布}
+\section{提案メトリクスの分布特性と予測への示唆}
 \input{5_4_feature_distribution.tex}
-\section{Partial Dependence Plot}
+\section{特徴量と予測確率の関係性の解明}
 \input{5_5_partial_dependence_plot.tex}
-\section{決定木}
+\section{直感的に理解可能な欠陥予測基準の抽出}
 \input{5_6_decision_tree_analysis.tex}
-\section{レビュー労力の削減効果}
+\section{同一労力でのバグ発見数増加の実証}
 \input{5_7_review_effort_reduction_effect.tex}
 \clearpage
 
