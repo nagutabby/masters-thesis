@@ -51,13 +51,19 @@
 \clearpage
 
 \chapter{コード品質と関連研究}
-\input{2_0_prerequisites.tex}
-\section{コミット単位での欠陥予測の必要性}
-\input{2_1_jit_qa.tex}
-\section{コミット時点でのコード特性の把握と課題}
-\input{2_2_commit_based_defect_prediction.tex}
-\section{リアルタイム品質検査の実現と課題}
-\input{2_3_quality_improvement_through_static_analysis.tex}
+\input{2_0_overview.tex}
+\section{欠陥予測の研究動向}
+\input{2_1_research_trends_in_defect_prediction.tex}
+\section{静的メトリクスに基づく欠陥予測}
+\input{2_2_defect_prediction_based_on_static_metrics.tex}
+\section{変更メトリクスに基づく欠陥予測}
+\input{2_3_defect_prediction_based_on_change_metrics.tex}
+\section{機械学習を用いた欠陥予測}
+\input{2_4_defect_prediction_using_machine_learning.tex}
+\section{レビュー効率化とコスト分析}
+\input{2_5_review_efficiency_and_cost_analysis.tex}
+\section{本研究の位置づけ}
+\input{2_6_positioning_of_this_study.tex}
 \clearpage
 
 \chapter{提案手法}
@@ -262,6 +268,12 @@ Neo4j,
 ``neo4j/neo4j: Graphs for Everyone,''
 \url{https://github.com/neo4j/neo4j},
 (2025-12-28 参照).
+
+\bibitem{hassan2009}
+Ahmed E. Hassan,
+``Predicting faults using the complexity of code changes,''
+\textit{Proc. 2009 IEEE 31st International Conference on Software Engineering (ICSE)},
+pp. 78--88, 2009.
 
 \end{thebibliography}
 \end{document}
