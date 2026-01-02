@@ -1,4 +1,4 @@
-提案手法の実践的な有効性を評価するため、Cost-Benefit Curveを用いてレビュー効率を分析した。表\ref{tab:cost_benefit_summary}に、レビュー労力を20\%および40\%に制限した場合のバグ検出率を示す。
+提案手法の実践的な有効性を評価するため、レビュー労力に対する欠陥発見数を分析した。表\ref{tab:cost_benefit_summary}に、レビュー労力を20\%および40\%に制限した場合のバグ検出率を示す。
 
 \begin{table}[ht]
 \centering
@@ -20,11 +20,11 @@ OrientDB & 54.0\% & \textbf{65.8\%} & 72.6\% & \textbf{85.7\%} \\
 \end{tabular}
 \end{table}
 
-特にNeo4jやNettyでは、提案手法を用いることで、わずか20\%の労力で全体の約70〜75\%のバグを検出可能であり、ベースラインと比較して15ポイント以上の大幅な効率化を達成した。図\ref{fig:comparison_cost_benefit_neo4j}に、Neo4jにおけるCost-Benefit Curveを示す。提案手法（青線）がベースライン（赤線）よりも上側に位置しており、少ない労力で多くのバグを発見できていることが分かる。
+特にNeo4jやNettyでは、提案手法を用いることで、わずか20\%の労力で全体の約70〜75\%のバグを検出可能であり、ベースラインと比較して15ポイント以上の大幅な効率化を達成した。図\ref{fig:comparison_cost_benefit_neo4j}に、Neo4jにおけるコードレビュー労力に対する欠陥発見数の累積積み上げグラフを示す。提案手法（青線）がベースライン（赤線）よりも上側に位置しており、少ない労力で多くのバグを発見できていることが分かる。
 
 \begin{figure}[ht]
 \centering
 \includegraphics[width=0.7\textwidth]{figures/neo4j/comparison_cost_benefit_curve.png}
-\caption{Cost-Benefit Curveの比較（代表例: Neo4j）}
+\caption{レビュー労力に対する欠陥発見数の比較（代表例: Neo4j）}
 \label{fig:comparison_cost_benefit_neo4j}
 \end{figure}
