@@ -5,7 +5,7 @@
 \begin{enumerate}
     \item \textbf{コミット規模の影響:} \texttt{lines\_added}（追加行数）や\texttt{num\_files}（変更ファイル数）が上位を占めた。これは、変更規模の大きさが欠陥混入リスクの主要な指標であることを示している。
     \item \textbf{変更の分散:} \texttt{entropy}も上位に位置し、変更が特定の箇所に集中しているか、分散しているかが重要であることが示唆された。
-    \item \textbf{メソッド単位の詳細:} Netty等では\texttt{tokens\_change}（トークン変化量）が最重要となるなど、粒度の細かい変更情報も予測に大きく寄与していた。
+    \item \textbf{メソッド単位の詳細:} Netty等では\texttt{tokens\_change}（トークン変化量）が最重要となるなど、小さい構成要素の変更情報も予測に大きく寄与していた。
 \end{enumerate}
 
 図\ref{fig:feature_importance_neo4j}に、代表例としてNeo4jプロジェクトにおける重要度上位の特徴量を示す。
