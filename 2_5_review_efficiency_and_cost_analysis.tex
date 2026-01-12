@@ -1,17 +1,27 @@
-ソフトウェア開発において、コードレビューは品質保証プロセスにおいて重要な活動であるが、リソースの制約により全てのコードを詳細にレビューすることは困難である。Ostrandらは、欠陥密度が最も高い構成要素の20\%に平均83\%の欠陥が集中することを示し、限られたリソースを効果的に配分する戦略の重要性を示唆した \cite{ostrand2005}。
+ソフトウェア開発において、コードレビューは品質保証プロセスにおいて重要な活動であるが、リソースの制約により全てのコードを詳細にレビューすることは困難である。一方で、欠陥の事後修正は開発者にとっては大きな負担である。開発後期の修正コストは初期段階の数倍に達することもあり、本番環境での発見はユーザー体験を損なう可能性がある。これは、欠陥が他のモジュールに波及し、テストケースの再実行やデプロイプロセスの繰り返しが必要となるためである。
 
-コードレビューはソフトウェアライフサイクルにおける保守作業の1つであるが、保守フェーズはコスト全体の大部分を占めており、特に不具合を修正する「是正保守」の効率化はコスト削減の鍵となる \cite{jisx0161}。Microsoft Researchの調査では、76\%の開発者がリファクタリングによる欠陥混入を懸念していると報告されており、変更に伴うリスク管理が重要である \cite{kim2014}。
-
-欠陥の事後修正は開発者にとっては大きな負担である。開発後期の修正コストは初期段階の数倍に達することもあり、本番環境での発見はユーザー体験を損なう可能性がある。これは、欠陥が他のモジュールに波及し、テストケースの再実行やデプロイプロセスの繰り返しが必要となるためである。
-
-\begin{figure}[tb] \centering \begin{subfigure}[b]{0.9\textwidth} \centering \includegraphics[width=\textwidth]{figures/defect_detection.pdf} \caption{欠陥予測を行わない場合の欠陥の広がり} \label{fig:defect_detection} \end{subfigure}
+\begin{figure}[tb]
+\centering
+\begin{subfigure}[b]{0.9\textwidth}
+\centering
+\includegraphics[width=\textwidth]{figures/defect_detection.pdf}
+\caption{欠陥予測を行わない場合の欠陥の広がり}
+\label{fig:defect_detection}
+\end{subfigure}
 
 \vspace{1em}
 
-\begin{subfigure}[b]{0.9\textwidth} \centering \includegraphics[width=\textwidth]{figures/defect_prediction.pdf} \caption{欠陥予測を用いた場合の早期対応} \label{fig:defect_prediction} \end{subfigure} \caption{欠陥予測の有無による欠陥の広がりの比較} \label{fig:defect_comparison} \end{figure}
+\begin{subfigure}[b]{0.9\textwidth}
+\centering 
+\includegraphics[width=\textwidth]{figures/defect_prediction.pdf}
+\caption{欠陥予測を用いた場合の早期対応}
+\label{fig:defect_prediction}
+\end{subfigure}
+\caption{欠陥予測の有無による欠陥の広がりの比較}
+\label{fig:defect_comparison}
+\end{figure}
 
 図 \ref{fig:defect_comparison} に示すように、欠陥予測による早期対応は、欠陥の波及を防ぎ、修正コストを削減できる。
+MendeとKoschkeは、欠陥予測を労力を考慮した順位付け問題として捉え直し、Effort-Aware Defect Prediction（レビュー労力に基づいた欠陥予測）の概念を提案した \cite{mende2010}。従来手法は各構成要素のレビュー労力が同一であると暗黙的に仮定していたが、実際には規模や複雑度によってレビュー労力が異なる。彼らは循環的複雑度を用いてレビュー労力を計算し、少ない労力でレビューでき、かつ欠陥混入率も高い構成要素を優先的にレビューする戦略を提案した。
+Kameiらは、このMendeとKoschkeらの手法をJust-In-Time欠陥予測に適用した \cite{kamei2013}。彼らは6つのオープンソースプロジェクトと5つの商用プロジェクトを用いた実証研究により、平均正解率68\%、平均再現率64\%で欠陥誘発コミットを予測できることを示し、レビュー労力の20\%で全欠陥誘発コミットの35\%を特定できることを示した。
 
-MendeとKoschkeは、欠陥予測を労力を考慮した順位付け問題として捉え直し、Effort-Aware Defect Prediction（レビュー労力に基づいた欠陥予測）の概念を提案した \cite{mende2010}。従来手法は各構成要素のレビュー労力が同一であると暗黙的に仮定していたが、実際には規模や複雑度によって必要な労力が異なる。彼らは循環的複雑度を用いてレビュー労力を計算し、少ない労力でレビューでき、かつ欠陥混入率も高い構成要素を優先的にレビューする戦略を提案した。
-
-Kameiらは、このMendeとKoschkeらの手法をJust-In-Time欠陥予測に適用した \cite{kamei2013}。彼らは6つのオープンソースプロジェクトと5つの商用プロジェクトを用いた実証研究により、平均正解率68\%、平均再現率64\%で欠陥誘発コミットを予測できることを示し、レビュー労力の20\%で全欠陥誘発コミットの35\%を特定できることを実証した。
