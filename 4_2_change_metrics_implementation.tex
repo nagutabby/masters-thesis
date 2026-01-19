@@ -97,15 +97,15 @@ com.example.user.UserManager\\.getUserName()Ljava/lang/String; \\
 \hline
 メソッドタイプ & 元のメソッド名 & 抽出されるトークン \\
 \hline
-データ検証 & \texttt{validateEmail()} & ["validate", "email"] \\
+データ検証 & {validateEmail()} & ["validate", "email"] \\
 \hline
-JSON解析 & \texttt{parseJsonData()} & ["parse", "json", "data"] \\
+JSON解析 & {parseJsonData()} & ["parse", "json", "data"] \\
 \hline
-データベース接続 & \texttt{connectToDatabase()} & ["connect", "database"] \\
+データベース接続 & {connectToDatabase()} & ["connect", "database"] \\
 \hline
-HTTP通信 & \texttt{sendHttpRequest()} & ["send", "http", "request"] \\
+HTTP通信 & {sendHttpRequest()} & ["send", "http", "request"] \\
 \hline
-コンストラクター & \texttt{<init>()} & ["constructor"] \\
+コンストラクター & {<init>()} & ["constructor"] \\
 \hline
 \end{tabular}
 \end{table}
@@ -113,14 +113,14 @@ HTTP通信 & \texttt{sendHttpRequest()} & ["send", "http", "request"] \\
 高頻度で出現するトークンとして除外される単語は、以下の通りである。
 
 \begin{itemize}
-    \item 一般的なJavaパッケージ名: "java", "util", "lang", "io", "net", "org", "com", "javax"
-    \item アクセサメソッドの接頭辞: "get", "set", "is", "has"
-    \item 一般的な動詞: "create", "build", "make", "run", "execute"
+    \item Javaパッケージ名: "java", "util", "lang", "io", "net", "org", "com", "javax"
+    \item メソッドの接頭辞: "get", "set", "is", "has"
+    \item 動詞: "create", "build", "make", "run", "execute"
     \item Javaの予約語や型名: "class", "interface", "void", "int", "string"
-    \item 一般的な修飾語: "impl", "default", "base", "simple", "empty"
+    \item 修飾語: "impl", "default", "base", "simple", "empty"
 \end{itemize}
 
-これらのトークンは、多くのプロジェクトで頻出するため識別能力が低く、予測モデルにノイズをもたらす。例えば、"get"という単語は非常に多くのメソッドに出現するため、欠陥の有無を区別する特徴とはならない。一方、"validate"、"parser"、"socket"といった単語は、メソッドの具体的な機能を示し、欠陥予測に有用である。
+これらのトークンは、多くのプロジェクトで頻出するため識別能力が低く、予測モデルにノイズをもたらす。一方、"validate"、"parser"、"socket"といった単語は、メソッドの具体的な機能を示し、欠陥予測に有用である。
 
 抽出されたトークンは、TF-IDF（Term Frequency-Inverse Document Frequency）を用いて数値ベクトルに変換される。TF-IDFは、各トークンの重要度を、文書内での出現頻度と全文書での出現頻度の逆数の積として計算する。これにより、特定のメソッドに特徴的なトークンに高い重みが付与され、多くのメソッドに共通するトークンの重みは抑制される。この処理により、メソッドが属するパッケージやクラスの名前、メソッド名自体が持つ意味的な情報を特徴量として活用できる。
 
