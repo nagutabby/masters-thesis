@@ -57,21 +57,10 @@
   \label{fig:pdp}
 \end{figure}
 
-特徴量$x_s$に対するPartial Dependence関数$\hat{f}_{x_s}$は以下のように定義される:
+特徴量$x_s$に対するPartial Dependence関数$f_{\text{PD}}(x_s)$は以下のように定義される。
 
-\begin{equation}
-\hat{f}_{x_s}(x_s) = \frac{1}{n}\sum_{i=1}^{n}\hat{f}(x_s, \mathbf{x}_{\backslash s}^{(i)})
-\end{equation}
+$$f_{\text{PD}}(x_s) = \frac{1}{n}\sum_{i=1}^{n}\hat{f}(x_s, x_{-s}^{(i)})$$
 
-ここで、$\hat{f}$は学習されたモデル、$\mathbf{x}_{\backslash s}^{(i)}$は$i$番目のサンプルにおける特徴量$x_s$以外の特徴量の値を表す。
+ここで、$\hat{f}$は学習されたモデル、$x_{-s}^{(i)}$は$i$番目のサンプルにおける特徴量$x_s$以外の特徴量の値を表す。
 
 \textbf{決定木の可視化}: ランダムフォレストを構成する決定木の一つを可視化することで、どのような分類条件で欠陥の有無を判断しているかを確認できる。
-
-図\ref{fig:data_analysis_flow}に、データ分析の全体的なワークフローを示す。このワークフローは4つのステップから構成される。Step 1ではデータセットを構築し、Step 2ではメトリクスの変化量を特徴量として追加する。Step 3では機械学習モデルを訓練し、Step 4では各プロジェクトで性能を評価する。
-
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=0.95\textwidth]{figures/data_analysis_flow.pdf}
-  \caption{データ分析のワークフロー全体像}
-  \label{fig:data_analysis_flow}
-\end{figure}
