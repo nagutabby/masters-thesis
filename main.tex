@@ -11,6 +11,21 @@
 \usepackage{subcaption}
 \usepackage{multirow}
 
+% listingsパッケージの設定
+\usepackage{listings}
+\lstset{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  frame=single,
+  numbers=left,
+  numberstyle=\tiny,
+  showstringspaces=false,
+  commentstyle=\color{green!50!black},
+  keywordstyle=\color{blue},
+  stringstyle=\color{red}
+}
+
 \title{コードの時系列変化を考慮した\\機械学習に基づく欠陥混入の低減手法}
 \author{%
   2410064\quad 笹川 尋翔\\
@@ -28,8 +43,8 @@
 
 % 目次の出力
 \tableofcontents
-
 \clearpage
+
 \centerline{概要}
 \input{0_overview.tex}
 \clearpage
@@ -116,5 +131,10 @@
 \renewcommand{\bibname}{参考文献}
 \bibliographystyle{unsrt}
 \bibliography{references}
+
+\clearpage
+\appendix
+
+\input{appendix.tex}
 
 \end{document}
