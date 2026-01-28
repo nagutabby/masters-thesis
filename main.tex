@@ -1,4 +1,4 @@
-\documentclass[12pt,a4paper]{ltjsreport}
+\documentclass[12pt,a4j]{ltjsreport}
 \usepackage{graphicx}
 \usepackage{fontspec}
 \usepackage{url}
@@ -26,14 +26,16 @@
   stringstyle=\color{red}
 }
 
-\title{コードの時系列変化を考慮した\\機械学習に基づく欠陥混入の低減手法}
+\title{ \large 修士論文\\
+\vspace{10mm}
+ \LARGE コードの時系列変化を考慮した\\機械学習に基づく欠陥混入の低減手法}
 \author{%
   2410064\quad 笹川 尋翔\\
   \vspace{40mm}
   主指導教員\quad 鈴木 正人\\
   \vspace{0mm}
   北陸先端科学技術大学院大学\\
-  先端科学技術研究科\\
+  先端科学技術専攻\\
   情報科学
 }
 \date{令和8年3月}
@@ -41,13 +43,14 @@
 \begin{document}
 \maketitle
 
-% 目次の出力
-\tableofcontents
-\clearpage
-
-\centerline{概要}
+\centerline{Abstract}
 \input{0_overview.tex}
 \clearpage
+
+\tableofcontents\thispagestyle{empty}
+\listoffigures\thispagestyle{empty}
+\listoftables\thispagestyle{empty}
+\setcounter{page}{0}
 
 \chapter{はじめに}
 \section{背景}
@@ -132,9 +135,9 @@
 \bibliographystyle{unsrt}
 \bibliography{references}
 
-\clearpage
-\appendix
+%\clearpage
+%\appendix
 
-\input{appendix.tex}
+%\input{appendix.tex}
 
 \end{document}
