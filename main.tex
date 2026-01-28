@@ -11,7 +11,6 @@
 \usepackage{subcaption}
 \usepackage{multirow}
 
-% listingsパッケージの設定
 \usepackage{listings}
 \lstset{
   language=Python,
@@ -21,9 +20,9 @@
   numbers=left,
   numberstyle=\tiny,
   showstringspaces=false,
-  commentstyle=\color{green!50!black},
+  commentstyle=\color{gray},
   keywordstyle=\color{blue},
-  stringstyle=\color{red}
+  stringstyle=\color{orange}
 }
 
 \title{ \large 修士論文\\
@@ -135,9 +134,8 @@
 \bibliographystyle{unsrt}
 \bibliography{references}
 
-%\clearpage
-%\appendix
-
-%\input{appendix.tex}
+\clearpage
+\appendix
+\input{appendix.tex}
 
 \end{document}
