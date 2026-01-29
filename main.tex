@@ -46,7 +46,11 @@
 \input{0_overview.tex}
 \clearpage
 
-\tableofcontents\thispagestyle{empty}
+\pagenumbering{gobble}
+\tableofcontents
+\cleardoublepage
+\pagenumbering{arabic}
+
 \listoffigures\thispagestyle{empty}
 \listoftables\thispagestyle{empty}
 \setcounter{page}{0}
